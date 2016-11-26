@@ -1,5 +1,4 @@
-import csv
-with open('data.csv', newline='') as f:
-	reader = csv.reader(f)
-	for row in reader:
-		print(row)
+import pandas as pd
+df = pd.read_csv(r'../data.csv')
+stuff = df.shot_made_flag
+print(stuff)
