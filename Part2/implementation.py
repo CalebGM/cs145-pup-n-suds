@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-from math import atan2
 
 df = pd.read_csv(r'../data.csv')
 
