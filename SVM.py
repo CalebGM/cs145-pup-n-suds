@@ -10,8 +10,8 @@ df = pd.read_csv(r'./data.csv')
 divZero = df['loc_x'] == 0
 df['r'] = np.sqrt(df['loc_x']**2 + df['loc_y']**2)
 df['theta'] = np.zeros(len(df))
-df['theta'][~divZero]  = np.arctan2(df['loc_y'][~divZero],df['loc_x'][~divZero])
-df['theta'][divZero] = np.pi/2 
+df.loc[~divZero, 'theta']  = np.arctan2(df['loc_y'][~divZero],df['loc_x'][~divZero])
+df.loc[divZero, 'theta'] = np.pi/2 
 df['seconds_from_period_end']=60*df['minutes_remaining']+df['seconds_remaining']
 
 removes = ['combined_shot_type', 'game_event_id', 'game_id', 'lat', 'loc_x',\
