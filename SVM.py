@@ -38,4 +38,5 @@ score = svc.score(X, y)
 
 to_predict = df[pd.isnull(df['shot_made_flag'])]
 to_predict = to_predict.drop('shot_made_flag', 1)
+to_predict = scale(to_predict)
 predicted = svc.predict(to_predict)

@@ -5,7 +5,7 @@ from pyclustering.cluster.optics import optics
 from sklearn.neighbors import NearestNeighbors
 
 
-df = pd.read_csv(r'../data.csv')
+df = pd.read_csv(r'./data.csv')
 shot_attempt = df.shot_made_flag
 list_1 = []
 
@@ -88,6 +88,6 @@ for points in lostData:
     neighborStat.append(k)
 lostPredict=np.greater_equal(neighborStat,3)
 lostPredict=lostPredict*1
-print float(sum(lostPredict))/len(lostPredict)
+print (float(sum(lostPredict))/len(lostPredict))
 #the accuracy calculated from known values
-print float(numMade)/(numMade+numMissed)
+print (float(numMade)/(numMade+numMissed))
