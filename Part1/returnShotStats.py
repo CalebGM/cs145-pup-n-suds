@@ -17,10 +17,10 @@ shotsMissed = shot_attempt[shot_attempt == 0]
 numMade = len(shotsMade)
 numMissed = len(shotsMissed)
 numLost = len(nanIndex)
-total = len(shot_attempt)
+total = numMade + numMissed
 print("Number of shots made: ", numMade)
 print("Number of shots missed: ", numMissed)
 print("Number of missing values: ", numLost)
-print("Percentage of values missing: ",1. * numLost/total,"%")
+print("Percentage of values missing: ",1. * numLost/len(shot_attempt),"%")
 print("Percentage of shots made: ",1. * numMade/total,"%")
 print("Percentage of shots missed: ",1. * numMissed/total,"%")

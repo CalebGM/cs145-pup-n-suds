@@ -5,6 +5,7 @@ from pyclustering.cluster.optics import optics
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import scale
 from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import cross_val_score
 pd.options.mode.chained_assignment = None  # default='warn'
 
 
@@ -77,6 +78,8 @@ d = {'shot_id' : nan_ids,
 results = pd.DataFrame(d);
 
 results.to_csv('resultsNN.csv', index=False)
+scores = cross_val_score(knn_model, train_set, train_class, cv=5)
+print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
 print (predicted[0:9])
 print (float(sum(predicted))/len(predicted))
 print (float(numMade)/(numMade+numMissed))

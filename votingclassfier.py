@@ -7,6 +7,7 @@ from sklearn.preprocessing import scale
 from sklearn.model_selection import GridSearchCV
 from sklearn import svm
 from sklearn.ensemble import VotingClassifier
+from sklearn.model_selection import cross_val_score
 pd.options.mode.chained_assignment = None  # default='warn'
 
 
@@ -84,5 +85,7 @@ results = pd.DataFrame(d);
 
 results.to_csv('resultsVC.csv', index=False)
 
+scores = cross_val_score(knn_model, train_set, train_class, cv=5)
+print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
 print (float(sum(predicted))/len(predicted))
 print (float(numMade)/(numMade+numMissed))

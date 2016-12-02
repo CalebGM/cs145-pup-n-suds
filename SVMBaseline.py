@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import scale
 from sklearn import svm
-from sklearn.model_selection import cross_val_score
 pd.options.mode.chained_assignment = None  # default='warn'
 
 df = pd.read_csv(r'./data.csv')
@@ -16,15 +15,6 @@ nan_rows = df[pd.isnull(df['shot_made_flag'])]
 nan_ids = nan_rows.shot_id
 
 #features
-#conversion from cartesian to polar; shot_distance less precise
-#also seperating angle/distance which is more "intuitive" for difficulty?
-divZero = df['loc_x'] == 0
-df['r'] = np.sqrt(df['loc_x']**2 + df['loc_y']**2)
-df['theta'] = np.zeros(len(df))
-df.loc[~divZero, 'theta']  = np.arctan2(df['loc_y'][~divZero],df['loc_x'][~divZero])
-df.loc[divZero, 'theta'] = np.pi/2 
-#summing minutes and seconds to get seconds
-df['seconds_from_period_end']=60*df['minutes_remaining']+df['seconds_remaining']
 
 #features which are either the same for all, or directly related to others
 removes = ['combined_shot_type', 'game_event_id', 'game_id', 'lat', 'loc_x',\
@@ -49,8 +39,6 @@ y = train['shot_made_flag']
 X = scale(X)
 svc = svm.LinearSVC()
 svc.fit(X, y)
-scores = cross_val_score(svc, X, y, cv=5)
-print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
 score = svc.score(X, y)
 
 to_predict = df[pd.isnull(df['shot_made_flag'])]
