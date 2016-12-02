@@ -5,22 +5,18 @@ from pyclustering.cluster.optics import optics
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import scale
 from sklearn.model_selection import GridSearchCV
+pd.options.mode.chained_assignment = None  # default='warn'
 
-df = pd.read_csv(r'../data.csv')
+
+df = pd.read_csv(r'./data.csv')
 shot_attempt = df.shot_made_flag
-list_1 = []
+nan_rows = df[pd.isnull(df['shot_made_flag'])]
+nan_ids = nan_rows.shot_id
 
-for index, shot in enumerate(shot_attempt):
-    if np.isnan(shot):
-        list_1.append(index)
-
-
-nanIndex = pd.DataFrame(list_1, columns=['col1'])
 shotsMade = shot_attempt[shot_attempt == 1]
 shotsMissed = shot_attempt[shot_attempt == 0]
 numMade = len(shotsMade)
 numMissed = len(shotsMissed)
-numLost = len(nanIndex)
 total = len(shot_attempt)
 '''print("Number of shots made: ", numMade)
 print("Number of shots missed: ", numMissed)
@@ -75,6 +71,12 @@ knn_model.fit(train_set,train_class)
 test_set=df[pd.isnull(data_cl['shot_made_flag'])]
 predicted=knn_model.predict(test_set)
 #the accuracy calculated from known values
-print predicted[0:9]
-print float(sum(predicted))/len(predicted)
-print float(numMade)/(numMade+numMissed)
+
+d = {'shot_id' : nan_ids,
+	'shot_made_flag' : predicted}
+results = pd.DataFrame(d);
+
+results.to_csv('resultsNN.csv', index=False)
+print (predicted[0:9])
+print (float(sum(predicted))/len(predicted))
+print (float(numMade)/(numMade+numMissed))
