@@ -3,6 +3,7 @@ import numpy as np
 from pyclustering.cluster import cluster_visualizer
 from pyclustering.cluster.optics import optics 
 from sklearn.neighbors import NearestNeighbors
+pd.options.mode.chained_assignment = None  # default='warn'
 
 
 df = pd.read_csv(r'./data.csv')

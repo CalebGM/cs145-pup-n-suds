@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import scale
 from sklearn import svm
+pd.options.mode.chained_assignment = None  # default='warn'
 
 df = pd.read_csv(r'./data.csv')
 
