@@ -17,8 +17,7 @@ nan_ids = nan_rows.shot_id
 #features
 
 #features which are either the same for all, or directly related to others
-removes = ['combined_shot_type', 'game_event_id', 'game_id', 'lat', 'loc_x',\
-          'loc_y', 'lon', 'minutes_remaining', 'seconds_remaining',\
+removes = ['combined_shot_type', 'game_event_id', 'game_id', 'lat', 'lon',\
           'shot_distance', 'shot_zone_area', 'shot_zone_basic',\
           'shot_zone_range', 'team_id', 'team_name', 'game_date',\
           'matchup', 'shot_id'],
